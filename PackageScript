@@ -30,12 +30,12 @@ def CopyFiles(src, dest, files):
     builder.AddCopy(source_path, dest_entry)
 
 # Include files 
-CopyFiles('include', 'addons/sourcemod/scripting/include',
- [ 'pawn/scripting/include/clown-core.inc', ]
+CopyFiles('pawn/scripting/include', 'addons/sourcemod/scripting/include',
+ [ 'clown-core.inc', ]
 )
 
-CopyFiles('include', 'addons/sourcemod/scripting/include/clown-core',
- [ 'pawn/scripting/include/clown-core/stocks.inc', ]
+CopyFiles('pawn/scripting/include/clown-core', 'addons/sourcemod/scripting/include/clown-core',
+ [ 'stocks.inc', ]
 )
 
 # GameData files
@@ -46,8 +46,8 @@ CopyFiles('include', 'addons/sourcemod/scripting/include/clown-core',
 #)
 
 # Config Files
-CopyFiles('configs', 'addons/sourcemod/configs/clowncore',
- [ 'pawn/configs/clowncore/settings.ini', ]
+CopyFiles('pawn/configs/clowncore', 'addons/sourcemod/configs/clowncore',
+ [ 'settings.ini', ]
 )
 
 # Copy binaries.
