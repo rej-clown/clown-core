@@ -9,8 +9,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-18.04, windows-2019, macos-10.15]
-        sourcemod-version: [1.10-dev]
+        os: [ubuntu-20.04, windows-2019, macos-10.15]
+        sourcemod-version: [1.11-dev]
         include:
           - os: ubuntu-20.04
             target-archs: x86,x86_64
@@ -81,9 +81,9 @@ jobs:
       - name: Package
         run: |
           version=`echo $GITHUB_REF | sed "s/refs\/tags\///"`
-          7z a etranslation-${version}-linux.zip ./Linux/*
-          7z a etranslation-${version}-mac.zip ./macOS/*
-          7z a etranslation-${version}-windows.zip ./Windows/*
+          7z a clown-${version}-linux.zip ./Linux/*
+          7z a clown-${version}-mac.zip ./macOS/*
+          7z a clown-${version}-windows.zip ./Windows/*
       - name: Release
         uses: svenstaro/upload-release-action@v2
         with:
