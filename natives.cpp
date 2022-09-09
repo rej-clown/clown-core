@@ -19,5 +19,5 @@ static cell_t sendData(IPluginContext *pContext, const cell_t *params)
 }
 
 const sp_nativeinfo_t natives[] = {
-    "ClownCore.SendData", sendData
+    { "ClownCore.SendData", sendData }
 };
