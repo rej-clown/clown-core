@@ -9,10 +9,16 @@ builder.SetBuildFolder('package')
 folder_list = [
   'addons/sourcemod/extensions',
   'addons/sourcemod/scripting/include',
-  'addons/sourcemod/scripting/include/clown-core'
+  'addons/sourcemod/scripting/include/clown-core',
   #'addons/sourcemod/gamedata',
   'addons/sourcemod/configs',
+  'addons/sourcemod/configs/clowncore',
 ]
+
+if 'x86_64' in Extension.target_archs:
+  folder_list.extend([
+    'addons/sourcemod/extensions/x64',
+  ])
 
 # Create the distribution folder hierarchy.
 folder_map = {}
@@ -29,13 +35,17 @@ def CopyFiles(src, dest, files):
     source_path = os.path.join(builder.sourcePath, src, source_file)
     builder.AddCopy(source_path, dest_entry)
 
-# Include files 
+# Include files
 CopyFiles('pawn/scripting/include', 'addons/sourcemod/scripting/include',
- [ 'clown-core.inc', ]
+  [ 'clown-core.inc' ]
 )
 
 CopyFiles('pawn/scripting/include/clown-core', 'addons/sourcemod/scripting/include/clown-core',
- [ 'stocks.inc', ]
+  [ 'stocks.inc' ]
+)
+
+CopyFiles('pawn/configs/clowncore', 'addons/sourcemod/configs/clowncore',
+  [ 'settings.ini' ]
 )
 
 # GameData files
@@ -46,10 +56,16 @@ CopyFiles('pawn/scripting/include/clown-core', 'addons/sourcemod/scripting/inclu
 #)
 
 # Config Files
-CopyFiles('pawn/configs/clowncore', 'addons/sourcemod/configs/clowncore',
- [ 'settings.ini', ]
-)
+#CopyFiles('configs', 'addons/sourcemod/configs',
+#  [ 'configfile.cfg',
+#  'otherconfig.cfg,
+#  ]
+#)
+#
 
 # Copy binaries.
 for cxx_task in Extension.extensions:
-  builder.AddCopy(cxx_task.binary, folder_map['addons/sourcemod/extensions'])
+  if cxx_task.target.arch == 'x86_64':
+    builder.AddCopy(cxx_task.binary, folder_map['addons/sourcemod/extensions/x64'])
+  else:
+    builder.AddCopy(cxx_task.binary, folder_map['addons/sourcemod/extensions'])
