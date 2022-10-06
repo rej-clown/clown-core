@@ -7,8 +7,8 @@ static cell_t sendData(IPluginContext *pContext, const cell_t *params)
 
     DataAction result;
 
-    if((result = SendData(path, &params[2])) < kReject_Immediately)
-        ReceivedData(path, &params[2]);
+    if((result = SendData(path, (cell_t *) &params[2])) < kReject_Immediately)
+        ReceivedData(path, (const cell_t *) &params[2]);
 
 
     return result;

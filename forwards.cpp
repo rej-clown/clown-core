@@ -5,7 +5,7 @@ DataAction SendData(const std::string &path, cell_t* data)
     DataAction action;
 
     onDataSent->PushString(path.c_str());
-    onDataSent->PushCellByRef(buffer, );
+    onDataSent->PushCell(*data);
     onDataSent->Execute((cell_t *)&action);
 
     if(action < kReject_Immediately)
