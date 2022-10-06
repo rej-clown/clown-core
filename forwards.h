@@ -13,7 +13,7 @@ struct FORWARD_RESULT
     std::string data;
 };
 
-FORWARD_RESULT SendData(const std::string &path, const std::string &data);
-void ReceivedData(const std::string &path, const std::string &data);
+DataAction SendData(const std::string &path, cell_t*);
+void ReceivedData(const std::string &path, const cell_t*);
 
 #endif //CCP_DEVC_FORWARDS_H

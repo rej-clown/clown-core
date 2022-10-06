@@ -3,16 +3,19 @@
 #endif
 #define _clown_core_included_
 
+#include <jansson>
+
 enum DataAction
 {
     kContinue = 0,
     kReceive,
     kReject,
-    kReject_Immedently // ?
+    kReject_Immedently
 };
 
-forward DataAction clown_OnDataSent(const char[] path, char[] data);
-forward void clown_OnDataReceived(const char[] path, const char[] data);
+forward DataAction clown_OnDataSent(const char[] path, Handle& data);
+
+forward void clown_OnDataReceived(const char[] path, Handle data);
 
 methodmap ClownCore
 {
@@ -25,7 +28,7 @@ methodmap ClownCore
     //                  kReceive  - data with changes (obv in json format)
     //                  kReject   - call rejected (with out data change)
     //                  kReject_Immendently - call rejected (with out data change and post call)
-    public static native DataAction SendData(const char[] path, char[] data);
+    public static native DataAction SendData(const char[] path, Handle& data);
 };
 
 #if defined CLOWN_USE_JANSSON

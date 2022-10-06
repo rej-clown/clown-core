@@ -1,27 +1,23 @@
 #include "forwards.h"
 
-FORWARD_RESULT SendData(const std::string &path, const std::string &data)
+DataAction SendData(const std::string &path, cell_t* data)
 {
-    const char *buffer = data.c_str();
-
-    FORWARD_RESULT result {
-        kContinue, data.length(), data
-    };
+    DataAction action;
 
     onDataSent->PushString(path.c_str());
-    onDataSent->PushString(buffer);
-    onDataSent->Execute((cell_t *)&result.what);
+    onDataSent->PushCellByRef(buffer, );
+    onDataSent->Execute((cell_t *)&action);
 
-    if(buffer != nullptr && result.what == kReceive)
-        result = { kReceive, strlen(buffer), buffer };
+    if(action < kReject_Immediately)
+        ReceivedData(path, (const cell_t *) data);
 
-    return result;
+    return action;
 }
 
-void ReceivedData(const std::string &path, const std::string &data)
+void ReceivedData(const std::string &path, const cell_t *data)
 {
     onDataReceived->PushString(path.c_str());
-    onDataReceived->PushString(data.c_str());
+    onDataReceived->PushCell(*data);
     onDataReceived->Execute(nullptr);
 }
 

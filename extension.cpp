@@ -9,10 +9,10 @@ IForward *onDataReceived;
 
 bool ClownCore::SDK_OnLoad(char *error, size_t maxlength, bool late)
 {
-    if((onDataSent = forwards->CreateForward("clown_OnDataSent", ET_Hook, 2, nullptr, Param_String, Param_String)) == nullptr)
+    if((onDataSent = forwards->CreateForward("clown_OnDataSent", ET_Hook, 2, nullptr, Param_String, Param_CellByRef)) == nullptr)
         smutils->LogError(myself, "Failed on create forward %s", "clown_OnDataSent");
 
-    if((onDataReceived = forwards->CreateForward("clown_OnDataReceived", ET_Ignore, 2, nullptr, Param_String, Param_String)) == nullptr)
+    if((onDataReceived = forwards->CreateForward("clown_OnDataReceived", ET_Ignore, 2, nullptr, Param_String, Param_Cell)) == nullptr)
         smutils->LogError(myself, "Failed on create forward %s", "clown_OnDataReceived");
 
     sharesys->AddNatives(myself, natives);

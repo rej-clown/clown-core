@@ -5,17 +5,13 @@ static cell_t sendData(IPluginContext *pContext, const cell_t *params)
     char *path;
     pContext->LocalToString(params[1], &path);
 
-    char *data;
-    pContext->LocalToString(params[2], &data);
+    DataAction result;
 
-    FORWARD_RESULT result =
-        SendData(path, data);
+    if((result = SendData(path, &params[2])) < kReject_Immediately)
+        ReceivedData(path, &params[2]);
 
-    if(result.what < kReject_Immediately)
-        ReceivedData(path, result.data);
 
-    pContext->StringToLocalUTF8(params[2], params[3], result.data.c_str(), &result.size);
-    return result.what;
+    return result;
 }
 
 const sp_nativeinfo_t natives[] = {
