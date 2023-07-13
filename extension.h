@@ -5,9 +5,6 @@
 
 #include "smsdk_ext.h"
 
-
-// enum class FORVARD_RESULT
-
 /**
  * @brief Sample implementation of the SDK Extension.
  * Note: Uncomment one of the pre-defined virtual functions in order to use it.
@@ -44,6 +41,6 @@ private:
 	json_t* m_pConfig = nullptr;
 };
 
-extern ClownCore g_ClownCore;
+extern ClownCore g_ClownCoreExt;
 
 #endif // _INCLUDE_SOURCEMOD_EXTENSION_PROPER_H_

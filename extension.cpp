@@ -1,9 +1,13 @@
+#include <src/CClownCore.h>
+
 #include "natives.h"
 #include "extension.h"
 
-ClownCore g_ClownCore;
+ClownCore g_ClownCoreExt;
 
-SMEXT_LINK(&g_ClownCore);
+SMEXT_LINK(&g_ClownCoreExt);
+
+nClownCore::CClownCore g_ClownCore;
 
 IForward *onSendData;
 IForward *onDataReceived;
@@ -23,7 +27,7 @@ bool ClownCore::SDK_OnLoad(char *error, size_t maxlength, bool late)
     sharesys->AddNatives(myself, natives);
     sharesys->RegisterLibrary(myself, "clown-core");
 
-    return true;
+    return sharesys->AddInterface(myself, &g_ClownCore);
 }
 
 void ClownCore::SDK_OnAllLoaded()
