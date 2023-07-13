@@ -27,6 +27,9 @@ methodmap ClownCore
     //                  kReject   - call rejected (with out data change)
     //                  kReject_Immendently - call rejected (with out data change and post call)
     public static native DataAction SendData(const char[] path, char[] data, int maxLen);
+
+    // ...
+    public static native void SendSignal(const char[] path, const char[] data = NULL_STRING);
 };
 
 /**

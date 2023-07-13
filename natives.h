@@ -6,6 +6,7 @@
 #include "forwards.h"
 
 extern cell_t SendData(SourcePawn::IPluginContext *pContext, const cell_t *params);
+extern cell_t SendSignal(SourcePawn::IPluginContext *pContext, const cell_t *params);
 
 extern const sp_nativeinfo_t natives[];
 
