@@ -1,18 +1,23 @@
+#include "natives.h"
 #include "extension.h"
 
-ClownCore clownCore;
+ClownCore g_ClownCore;
 
-SMEXT_LINK(&clownCore);
+SMEXT_LINK(&g_ClownCore);
 
-IForward *onDataSent;
+IForward *onSendData;
 IForward *onDataReceived;
 
 bool ClownCore::SDK_OnLoad(char *error, size_t maxlength, bool late)
 {
-    if((onDataSent = forwards->CreateForward("clown_OnDataSent", ET_Hook, 2, nullptr, Param_String, Param_Cell)) == nullptr)
+    if((onSendData = forwards->CreateForward(
+            "clown_OnDataSent", ET_Hook, 3, nullptr, Param_String, Param_String, Param_Cell
+    )) == nullptr)
         smutils->LogError(myself, "Failed on create forward %s", "clown_OnDataSent");
 
-    if((onDataReceived = forwards->CreateForward("clown_OnDataReceived", ET_Ignore, 2, nullptr, Param_String, Param_Cell)) == nullptr)
+    if((onDataReceived = forwards->CreateForward(
+            "clown_OnDataReceived", ET_Ignore, 2, nullptr, Param_String, Param_String
+    )) == nullptr)
         smutils->LogError(myself, "Failed on create forward %s", "clown_OnDataReceived");
 
     sharesys->AddNatives(myself, natives);
@@ -23,34 +28,43 @@ bool ClownCore::SDK_OnLoad(char *error, size_t maxlength, bool late)
 
 void ClownCore::SDK_OnAllLoaded()
 {
-    // char *error;
-    // size_t maxlength;
-
-    SM_GET_LATE_IFACE(EXTENSIONMANAGER, m_pManager);
-        // g_pSM->LogError(myself, "");
+//    pass
 }
 
-void ClownCore::OnMapStart()
-{
-    char path[256];
-    g_pSM->BuildPath(Path_SM, path, 256, "configs/clowncore/settings.ini");
-
-    SMCError err;
-    SMCStates states;
-    if((err = textparsers->ParseFile_SMC(path, this, &states)) != SMCError_Okay)
-        m_pManager->UnloadExtension(myself);
-}
-
-SMCResult ClownCore::ReadSMC_KeyValue(const SMCStates *states, const char *key, const char *value) 
-{
-    if(!key || !value)
-        return SMCResult_Continue;
-
-    return SMCResult_Continue;
-}
 
 void ClownCore::SDK_OnUnload()
 {
-    forwards->ReleaseForward(onDataSent);
+    forwards->ReleaseForward(onSendData);
     forwards->ReleaseForward(onDataReceived);
+}
+
+void ClownCore::OnCoreMapStart(edict_t *pEdictList, int edictCount, int clientMax) {
+
+    char path[PLATFORM_MAX_PATH];
+    g_pSM->BuildPath(Path_SM, path, PLATFORM_MAX_PATH, SMEXT_CONF_CONFIG);
+
+    json_t* object;
+    json_error_t error = {};
+    if((object = json_load_file(path, 0, &error)) == nullptr)
+        smutils->LogError(myself, "Error on json config load (%d; %s): %s [l: %d; c: %d; p: %d]",
+                          json_error_code(&error),
+                          error.source,
+                          error.text,
+                          error.line,
+                          error.column,
+                          error.position);
+
+
+    if(object == nullptr)
+        return;
+
+    if(m_pConfig != nullptr)
+    {
+        json_decref(m_pConfig);
+        m_pConfig = nullptr;
+    }
+
+    m_pConfig = object;
+
+    IExtensionInterface::OnCoreMapStart(pEdictList, edictCount, clientMax);
 }

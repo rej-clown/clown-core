@@ -9,10 +9,10 @@ builder.SetBuildFolder('package')
 folder_list = [
   'addons/sourcemod/extensions',
   'addons/sourcemod/scripting/include',
-  'addons/sourcemod/scripting/include/clown-core',
+  #'addons/sourcemod/scripting/include/clown-core',
   #'addons/sourcemod/gamedata',
   'addons/sourcemod/configs',
-  'addons/sourcemod/configs/clowncore',
+  'addons/sourcemod/configs/clown-core',
 ]
 
 if 'x86_64' in Extension.target_archs:
@@ -40,13 +40,6 @@ CopyFiles('pawn/scripting/include', 'addons/sourcemod/scripting/include',
   [ 'clown-core.inc' ]
 )
 
-CopyFiles('pawn/scripting/include/clown-core', 'addons/sourcemod/scripting/include/clown-core',
-  [ 'stocks.inc' ]
-)
-
-CopyFiles('pawn/configs/clowncore', 'addons/sourcemod/configs/clowncore',
-  [ 'settings.ini' ]
-)
 
 # GameData files
 #CopyFiles('gamedata', 'addons/sourcemod/gamedata',
@@ -56,11 +49,9 @@ CopyFiles('pawn/configs/clowncore', 'addons/sourcemod/configs/clowncore',
 #)
 
 # Config Files
-#CopyFiles('configs', 'addons/sourcemod/configs',
-#  [ 'configfile.cfg',
-#  'otherconfig.cfg,
-#  ]
-#)
+CopyFiles('pawn/configs/clown-core', 'addons/sourcemod/configs/clown-core',
+    [ 'settings.json', ]
+)
 #
 
 # Copy binaries.
