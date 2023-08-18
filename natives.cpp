@@ -33,7 +33,7 @@ cell_t ClownGetMyKey(IPluginContext *pContext, const cell_t *params)
     static const char* TOKEN = "api.key";
 
     json_t* obj;
-    if(!(obj = json_object_get(ClownCore::pConfig, TOKEN)))
+    if(!(obj = json_object_get(g_ClownCoreExt.Config(), TOKEN)))
         return 0;
 
     const char* str = nullptr;

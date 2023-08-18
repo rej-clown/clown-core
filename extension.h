@@ -35,10 +35,12 @@ public:
 
     void OnCoreMapStart(edict_t *pEdictList, int edictCount, int clientMax) override;
 
+    json_t* Config() const;
+
 //	void OnCore
 
-public:
-	static json_t* pConfig;
+private:
+	json_t* m_pConfig;
 };
 
 extern ClownCore g_ClownCoreExt;
