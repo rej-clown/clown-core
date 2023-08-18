@@ -32,7 +32,7 @@ bool ClownCore::SDK_OnLoad(char *error, size_t maxlength, bool late)
 
 void ClownCore::SDK_OnAllLoaded()
 {
-//    pass
+    OnCoreMapStart(nullptr, 0, 0);
 }
 
 
