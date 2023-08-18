@@ -2,12 +2,12 @@
 
 #include <clown-core>
 
+#define PING "core.ping"
+
 public void OnMapStart() {
 
-    char data[] = "Hello";
+    ClownCore.SendSignal(PING, );
 
-    LogMessage("OnReceiveCode: %d", ClownCore.SendData("self.ping", data, sizeof(data)));
-    LogMessage("OnDataReceived: %s", data);
 }
 
 public DataAction clown_OnDataSent(const char[] path, char[] data, int maxLen) {

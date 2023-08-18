@@ -62,13 +62,13 @@ void ClownCore::OnCoreMapStart(edict_t *pEdictList, int edictCount, int clientMa
     if(object == nullptr)
         return;
 
-    if(m_pConfig != nullptr)
+    if(pConfig != nullptr)
     {
-        json_decref(m_pConfig);
-        m_pConfig = nullptr;
+        json_decref(pConfig);
+        pConfig = nullptr;
     }
 
-    m_pConfig = object;
+    pConfig = object;
 
     IExtensionInterface::OnCoreMapStart(pEdictList, edictCount, clientMax);
 }

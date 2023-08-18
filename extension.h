@@ -37,8 +37,8 @@ public:
 
 //	void OnCore
 
-private:
-	json_t* m_pConfig = nullptr;
+public:
+	static json_t* pConfig;
 };
 
 extern ClownCore g_ClownCoreExt;

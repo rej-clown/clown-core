@@ -37,6 +37,9 @@ methodmap ClownCore
     //
     // @return          custom things
     public static native DataAction SendSignal(const char[] path, const char[] data = NULL_STRING);
+
+    // @return Self API key
+    public static native bool GetMyToken(char[] buffer, int maxLen);
 };
 
 /**
