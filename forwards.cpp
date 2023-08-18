@@ -29,10 +29,14 @@ DataAction OnSendData(const char* path, char* data, const size_t& maxLen)
     return action;
 }
 
-void OnDataReceived(const char* path, const char* data)
+DataAction OnDataReceived(const char* path, const char* data)
 {
+    DataAction action = kContinue;
+
     onDataReceived->PushString(path);
     onDataReceived->PushString(data);
-    onDataReceived->Execute(nullptr);
+    onDataReceived->Execute((cell_t*)&action);
+
+    return action;
 }
 

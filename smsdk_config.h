@@ -38,12 +38,12 @@
  */
 
 /* Basic information exposed publicly */
-#define SMEXT_CONF_NAME			"ClownCore"
+#define SMEXT_CONF_NAME			"Clown-Core"
 #define SMEXT_CONF_DESCRIPTION	"---"
-#define SMEXT_CONF_VERSION		"0.1.0.0"
+#define SMEXT_CONF_VERSION		"1.0.0"
 #define SMEXT_CONF_AUTHOR		"rej.chev"
 #define SMEXT_CONF_URL			"..."
-#define SMEXT_CONF_LOGTAG		"CloC"
+#define SMEXT_CONF_LOGTAG		"Clown"
 #define SMEXT_CONF_LICENSE		"GPL"
 #define SMEXT_CONF_DATESTRING	__DATE__
 #define SMEXT_CONF_CONFIG       "configs/clown-core/settings.json"

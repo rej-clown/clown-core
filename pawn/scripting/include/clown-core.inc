@@ -8,28 +8,35 @@ enum DataAction
     kContinue = 0,
     kReceive,
     kReject,
-    kReject_Immedently
+    kRejectImmedently
 };
 
 forward DataAction clown_OnDataSent(const char[] path, char[] data, int maxLen);
 
-forward void clown_OnDataReceived(const char[] path, const char[] data);
+// Final data send state
+forward DataAction clown_OnDataReceived(const char[] path, const char[] data);
 
 methodmap ClownCore
 {
-    // @desc 
+    // @desc Sending data to the environment (clown_OnDataReceived after call result 'll ignore)
     // 
     // @param path      Some virtual path
-    // @param data      Json data
+    // @param data      Some data buffer
+    // @param maxLen    Some data buffer max length
     // 
     // @return          kContinue - data with out changes
-    //                  kReceive  - data with changes (obv in json format)
+    //                  kReceive  - data with changes
     //                  kReject   - call rejected (with out data change)
-    //                  kReject_Immendently - call rejected (with out data change and post call)
+    //                  kRejectImmendently - call rejected (with out data change and clown_OnDataReceived call)
     public static native DataAction SendData(const char[] path, char[] data, int maxLen);
 
-    // ...
-    public static native void SendSignal(const char[] path, const char[] data = NULL_STRING);
+    // @desc Sending signal to the environment (clown_OnDataReceived call)
+    //
+    // @param path      Some virtual path
+    // @param data      Some data
+    //
+    // @return          custom things
+    public static native DataAction SendSignal(const char[] path, const char[] data = NULL_STRING);
 };
 
 /**

@@ -19,9 +19,7 @@ cell_t SendSignal(IPluginContext *pContext, const cell_t *params)
     char* data;
     pContext->LocalToString(params[2], &data);
 
-    OnDataReceived(path, data);
-
-    return 1;
+    return OnDataReceived(path, data);
 }
 
 const sp_nativeinfo_t natives[] = {

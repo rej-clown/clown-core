@@ -12,7 +12,7 @@ enum DataAction
 };
 
 extern DataAction OnSendData(const char* path, char* data, const size_t& maxLen);
-extern void OnDataReceived(const char* path, const char* data);
+extern DataAction OnDataReceived(const char* path, const char* data);
 
 extern SourceMod::IForward *onSendData;
 extern SourceMod::IForward *onDataReceived;

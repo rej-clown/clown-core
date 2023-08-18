@@ -20,7 +20,7 @@ bool ClownCore::SDK_OnLoad(char *error, size_t maxlength, bool late)
         smutils->LogError(myself, "Failed on create forward %s", "clown_OnDataSent");
 
     if((onDataReceived = forwards->CreateForward(
-            "clown_OnDataReceived", ET_Ignore, 2, nullptr, Param_String, Param_String
+            "clown_OnDataReceived", ET_Hook, 2, nullptr, Param_String, Param_String
     )) == nullptr)
         smutils->LogError(myself, "Failed on create forward %s", "clown_OnDataReceived");
 
